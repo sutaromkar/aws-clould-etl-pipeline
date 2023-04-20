@@ -3,6 +3,7 @@ from feach_plaza_ids import get_all_plaza_ids
 from datetime import date
 import concurrent.futures
 from functools import partial
+import os
 
 
 def create_etl_object_and_run(plaza_id, db_credential, db_table_name):
@@ -11,7 +12,7 @@ def create_etl_object_and_run(plaza_id, db_credential, db_table_name):
 
 
 if __name__ =="__main__":
-    db_credential = "postgresql://postgres:admin@localhost/nhai"
+    db_credential = os.environ['db_credential']
     db_table_name = f'nhai_toll_plaza_{date.today()}'
     ids = get_all_plaza_ids()
     partial_etl_function = partial(create_etl_object_and_run, db_credential = db_credential, db_table_name = db_table_name)
